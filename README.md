@@ -1,1 +1,1 @@
-# nijiscan-legal
+# nijiscan-app
