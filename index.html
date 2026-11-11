@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NijiScan</title>
+<meta name="description" content="NijiScan — a privacy-first document scanning app for Android. No cloud, no sign-ups, everything stays on your phone.">
+<style>
+  :root {
+    --teal-dark: #0b5f57;
+    --teal: #16a394;
+    --teal-light: #5fd9c8;
+    --panel: #f3f9f8;
+    --ink: #17272a;
+    --muted: #5b6b6a;
+    --bg: #ffffff;
+    --line: #e3eeec;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.6;
+  }
+  a { color: var(--teal-dark); }
+
+  /* ---------- Hero ---------- */
+  header.hero {
+    background: linear-gradient(135deg, var(--teal-dark), var(--teal));
+    color: white;
+    padding: 64px 20px 88px;
+    text-align: center;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  .brand-mark {
+    width: 64px; height: 64px;
+    border-radius: 16px;
+    background: white;
+    display: flex; align-items: center; justify-content: center;
+    padding: 8px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  }
+  .brand-mark img { width: 100%; height: 100%; object-fit: contain; }
+  header.hero h1 { margin: 0; font-size: 2.3rem; letter-spacing: -0.02em; }
+  header.hero p.tag {
+    margin: 14px auto 0;
+    font-size: 1.1rem;
+    opacity: 0.95;
+    max-width: 560px;
+  }
+  .hero-badges {
+    margin-top: 26px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .hero-badges span {
+    background: rgba(255,255,255,0.16);
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 0.85rem;
+  }
+
+  /* ---------- Layout ---------- */
+  main { max-width: 1040px; margin: -48px auto 0; padding: 0 20px 60px; }
+  section { margin-bottom: 28px; }
+  .card {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(11, 95, 87, 0.08);
+    padding: 36px;
+  }
+  .card.panel { background: var(--panel); }
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--teal);
+    margin: 0 0 8px;
+  }
+  h2.section-title { margin: 0 0 6px; font-size: 1.7rem; letter-spacing: -0.01em; }
+  p.section-sub { margin: 0 0 30px; color: var(--muted); max-width: 640px; }
+
+  /* ---------- Feature rows ---------- */
+  .feature-row {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    padding: 34px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .feature-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .feature-row.reverse { flex-direction: row-reverse; }
+  .feature-row .shot { flex: 0 0 auto; width: 240px; }
+  .feature-row .shot img {
+    width: 100%;
+    border-radius: 20px;
+    border: 1px solid var(--line);
+    box-shadow: 0 10px 28px rgba(11, 95, 87, 0.14);
+    display: block;
+  }
+  .feature-row .copy { flex: 1; min-width: 240px; }
+  .feature-row h3 { margin: 0 0 10px; font-size: 1.25rem; }
+  .feature-row p { margin: 0; color: var(--muted); }
+  .feature-row ul { margin: 12px 0 0; padding-left: 1.1em; color: var(--muted); }
+  .feature-row li { margin-bottom: 6px; }
+
+  /* ---------- Trust grid ---------- */
+  .trust-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+    margin-top: 8px;
+  }
+  .trust-item h4 { margin: 0 0 6px; font-size: 1.02rem; }
+  .trust-item p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+  .trust-item .icon { font-size: 1.6rem; margin-bottom: 8px; display: block; }
+
+  /* ---------- Honesty callout ---------- */
+  .callout {
+    display: flex;
+    gap: 22px;
+    align-items: flex-start;
+  }
+  .callout .mark { font-size: 2.2rem; line-height: 1; }
+  .callout h2.section-title { margin-bottom: 10px; }
+  .callout p { color: var(--ink); margin: 0 0 14px; }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout .muted { color: var(--muted); }
+
+  /* ---------- Pricing ---------- */
+  .pricing-row {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+  }
+  .pricing-row .shot { flex: 0 0 auto; width: 240px; }
+  .pricing-row .shot img {
+    width: 100%;
+    border-radius: 20px;
+    border: 1px solid var(--line);
+    box-shadow: 0 10px 28px rgba(11, 95, 87, 0.14);
+    display: block;
+  }
+  .pricing-row .copy { flex: 1; min-width: 240px; }
+  .price-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 18px;
+  }
+  .price-card {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px;
+    background: white;
+  }
+  .price-card.pro { border-color: var(--teal-light); background: #effaf7; }
+  .price-card h4 { margin: 0 0 4px; font-size: 1rem; }
+  .price-card .price { font-weight: 800; font-size: 1.3rem; color: var(--teal-dark); margin: 4px 0 8px; }
+  .price-card ul { margin: 0; padding-left: 1.1em; font-size: 0.9rem; color: var(--muted); }
+  .price-card li { margin-bottom: 4px; }
+  .no-sub-note {
+    margin-top: 14px;
+    font-size: 0.88rem;
+    color: var(--muted);
+  }
+
+  /* ---------- Publisher / legal ---------- */
+  .identity-grid {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 10px 18px;
+    font-size: 0.98rem;
+  }
+  .identity-grid dt { color: var(--muted); font-weight: 600; }
+  .identity-grid dd { margin: 0; }
+  .links a {
+    display: inline-block;
+    margin-right: 18px;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 2px solid var(--teal-light);
+    padding-bottom: 2px;
+  }
+  .links a:hover { color: var(--teal); }
+
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.9rem;
+    padding: 24px 20px 48px;
+  }
+
+  /* ---------- Placeholder screenshot (features not yet captured) ---------- */
+  .placeholder-shot {
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    border-radius: 20px;
+    border: 2px dashed var(--line);
+    background: var(--panel);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+    padding: 16px;
+  }
+
+  @media (max-width: 680px) {
+    .feature-row, .feature-row.reverse, .pricing-row { flex-direction: column; }
+    .feature-row .shot, .pricing-row .shot { width: 220px; }
+    .price-cards { grid-template-columns: 1fr; }
+    .callout { flex-direction: column; }
+  }
+
+  /* ---------- Motion (scroll reveal + hover lift) ---------- */
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
+    .feature-row .shot img,
+    .pricing-row .shot img {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .feature-row .shot img:hover,
+    .pricing-row .shot img:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 36px rgba(11, 95, 87, 0.22);
+    }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="brand">
+    <div class="brand-mark"><img src="assets/logo.png" alt="NijiScan logo"></div>
+    <h1>NijiScan</h1>
+  </div>
+  <p class="tag">A straightforward document scanner for Android. Scan, organize, merge, lock and export your documents — entirely on your phone, with nothing sent anywhere else.</p>
+  <div class="hero-badges">
+    <span>No sign-up</span>
+    <span>No cloud upload</span>
+    <span>No subscriptions</span>
+    <span>No watermarks</span>
+  </div>
+</header>
+
+<main>
+
+  <!-- Honest, humble framing — requested directly by the developer -->
+  <section>
+    <div class="card panel callout reveal">
+      <div class="mark">👋</div>
+      <div>
+        <h2 class="section-title">Just so we're upfront about it</h2>
+        <p>We're not going to tell you NijiScan is the best scanning app out there — there are bigger apps, from bigger teams, with bigger feature lists. What we can tell you is that it's built to cover the everyday scanning jobs people actually run into: receipts, notes, forms, books, IDs — scanned cleanly, organized sensibly, and kept on your device.</p>
+        <p>This is still an early, independently-built app, and it'll keep getting better from here. If something's missing or clunky, that's useful to know — feedback on features is genuinely welcome, not just a line we're putting on a website.</p>
+        <p class="muted">No watermarks on your exports. Scanning, organizing and sharing are free. A few extra tools can be unlocked for free by watching a short ad, and Pro, a one-time purchase, removes ads and unlocks everything for good. If you'd like to help keep the app maintained and growing, buying Pro is also the simplest way to do that.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature walkthrough -->
+  <section>
+    <div class="card">
+      <p class="eyebrow">What it does</p>
+      <h2 class="section-title">Everything you need to turn paper into a usable file</h2>
+      <p class="section-sub">A quick look at the core workflow — from pointing your camera at a page to ending up with an organized, exportable document.</p>
+
+      <div class="feature-row reveal">
+        <div class="shot"><img data-shot src="assets/scan-capture.jpg" alt="NijiScan capture screen scanning a document"></div>
+        <div class="copy">
+          <h3>Scan with auto-crop and edge detection</h3>
+          <p>Point your camera at a page and NijiScan detects the edges, straightens the perspective, and cleans it up automatically. Multi-page documents and book mode are both supported for when you're scanning more than a single flat sheet.</p>
+        </div>
+      </div>
+
+      <div class="feature-row reverse reveal">
+        <div class="shot"><img data-shot src="assets/crop.jpg" alt="Adjusting crop corners with a magnifier"></div>
+        <div class="copy">
+          <h3>Fine-tune the crop with a magnifier</h3>
+          <p>Drag a corner and a magnifier shows exactly where the edge sits, so nothing at the edge of the page gets cut off. Auto crop, manual crop or no crop at all — it's your choice for each page.</p>
+        </div>
+      </div>
+
+      <div class="feature-row reveal">
+        <div class="shot"><img data-shot src="assets/filters.jpg" alt="Choosing a filter for a scanned page"></div>
+        <div class="copy">
+          <h3>Pick a look, apply it to every page</h3>
+          <p>Go from the untouched original to crisp, high-contrast text with one tap, on a single page or the whole document at once. The original is always kept, so you can switch filters back whenever you like.</p>
+        </div>
+      </div>
+
+      <div class="feature-row reverse reveal">
+        <div class="shot"><img data-shot src="assets/id-cards.jpg" alt="Scanning an ID card front and back"></div>
+        <div class="copy">
+          <h3>Scan ID cards, front and back</h3>
+          <p>Guided capture for each side, then both sides are placed on one A4 page at real card size — ready to print or submit.</p>
+        </div>
+      </div>
+
+      <div class="feature-row reveal">
+        <div class="shot"><img data-shot src="assets/add-pages.jpg" alt="Choosing where to add new pages"></div>
+        <div class="copy">
+          <h3>Add pages exactly where they belong</h3>
+          <p>Most scanner apps tack new pages onto the end of a document and leave you to drag them into place afterward. NijiScan asks first — add new pages at the beginning, the end, or right after any specific page — so you're not immediately reordering what you just added.</p>
+        </div>
+      </div>
+
+      <div class="feature-row reverse reveal">
+        <div class="shot"><img data-shot src="assets/rearrange.jpg" alt="Moving selected pages to an exact position"></div>
+        <div class="copy">
+          <h3>The fastest page reordering you'll use</h3>
+          <p>Missed scanning in sequence, or just wish a page would teleport instead of getting dragged there? Drag-and-drop handles the small shuffles — nudge a page up or down, move a few at once. For the long hauls, Quick Reorder lets you select any page (or a handful) and send them straight to an exact position — beginning, end, or anywhere between — instantly.</p>
+          <p>Dragging page 100 all the way to page 1 by hand feels like a road trip. Quick Reorder skips straight to the flight.</p>
+        </div>
+      </div>
+
+      <div class="feature-row reveal">
+        <div class="shot"><img data-shot src="assets/extract.jpg" alt="Copying selected pages into a new document"></div>
+        <div class="copy">
+          <h3>Pull pages out into their own document</h3>
+          <p>Select the pages you need and copy or move them into a new document or an existing one. Pages from text PDFs that you haven't edited keep their selectable text.</p>
+        </div>
+      </div>
+
+      <div class="feature-row reverse reveal">
+        <div class="shot"><img data-shot src="assets/merge.jpg" alt="Merging documents in NijiScan"></div>
+        <div class="copy">
+          <h3>Merge documents together</h3>
+          <p>Scanned something across two sessions, or need to combine a few separate documents into one file? Merge pulls them together into a single document — any PDF already on your phone works too, not just ones scanned here — without needing another app. Pages from text PDFs that you haven't edited keep their selectable text in the result.</p>
+        </div>
+      </div>
+
+      <div class="feature-row reveal">
+        <div class="shot"><img data-shot src="assets/snip-note.jpg" alt="A note made from snipped pieces"></div>
+        <div class="copy">
+          <h3>Pull pieces into one note</h3>
+          <p>Snip to Note cuts a piece out of any PDF or photo and drops it into a note alongside pieces from elsewhere — each one automatically stamped with where it came from (source, page, time), so you're not left guessing later.</p>
+        </div>
+      </div>
+
+      <div class="feature-row reverse reveal">
+        <div class="shot"><img data-shot src="assets/compress.jpg" alt="Preview of a compressed document"></div>
+        <div class="copy">
+          <h3>Compress to the size you actually need</h3>
+          <p>Need a document small enough to email or upload to a form with a size limit? Pick a target size and NijiScan works out a quality level to get you there, rather than leaving you to guess.</p>
+        </div>
+      </div>
+
+      <div class="feature-row reveal">
+        <div class="shot"><img data-shot src="assets/lock.jpg" alt="Locking a sensitive document"></div>
+        <div class="copy">
+          <h3>Lock documents that shouldn't be one tap away</h3>
+          <p>Some scans — IDs, medical reports, financial paperwork — aren't meant to be visible to anyone who picks up your phone. Lock a document and it stays out of reach until you unlock it.</p>
+        </div>
+      </div>
+
+      <div class="feature-row reverse reveal">
+        <div class="shot"><img data-shot src="assets/home.jpg" alt="NijiScan home screen with organized documents and folders"></div>
+        <div class="copy">
+          <h3>Keep it all organized, on your phone</h3>
+          <p>Folders, search, and a plain document list — nothing fancier than it needs to be. Everything you scan stays stored locally, so there's no account to set up and nothing waiting on a server somewhere else.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Privacy/trust -->
+  <section>
+    <div class="card panel reveal">
+      <p class="eyebrow">Privacy</p>
+      <h2 class="section-title">Your documents stay yours</h2>
+      <p class="section-sub">No account, no cloud sync, no analytics pipeline collecting what you scan. The processing happens on your device because there's no server-side part of NijiScan for it to go through.</p>
+      <div class="trust-grid">
+        <div class="trust-item">
+          <span class="icon">📵</span>
+          <h4>No cloud upload</h4>
+          <p>Scanning, cropping, and exporting all happen locally. Your pages never leave your phone to get processed.</p>
+        </div>
+        <div class="trust-item">
+          <span class="icon">🔑</span>
+          <h4>No account required</h4>
+          <p>There's nothing to sign up for and nothing tied to an email or phone number to use the app.</p>
+        </div>
+        <div class="trust-item">
+          <span class="icon">🔒</span>
+          <h4>Lock sensitive documents</h4>
+          <p>Keep specific documents hidden behind a lock screen within the app, separate from your phone's own lock.</p>
+        </div>
+        <div class="trust-item">
+          <span class="icon">📢</span>
+          <h4>About the ads</h4>
+          <p>Ads in the free version come from Google AdMob, which uses device identifiers as described in our Privacy Policy. Your documents are never part of that.</p>
+        </div>
+        <div class="trust-item">
+          <span class="icon">🗂️</span>
+          <h4>You control the files</h4>
+          <p>Export, share or delete documents whenever you want — there's no remote copy to also go clean up.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Monetization -->
+  <section>
+    <div class="card reveal">
+      <p class="eyebrow">Pricing</p>
+      <h2 class="section-title">Free with ads, or pay once for everything</h2>
+      <div class="pricing-row">
+        <div class="shot"><img data-shot src="assets/go-pro.jpg" alt="Go Pro option in NijiScan"></div>
+        <div class="copy">
+          <p>NijiScan is free to use, supported by ads. Every feature is open for your first 3 days. After that, the extra tools (Notes, Compress, Merge, Lock, password-protected PDFs, ID card scans after the first 5, and Book mode beyond 50 pages in one session) unlock for an hour at a time when you watch a short ad. Pro is a single one-time purchase that removes ads and unlocks everything permanently. It's not a subscription, and not a recurring charge you have to remember to cancel.</p>
+          <div class="price-cards">
+            <div class="price-card">
+              <h4>Free</h4>
+              <div class="price">₹0</div>
+              <ul>
+                <li>Unlimited scanning, cropping, filters and export</li>
+                <li>Organize, rearrange, add and extract pages</li>
+                <li>Everything open for the first 3 days</li>
+                <li>Extra tools unlock for an hour per short ad</li>
+                <li>Supported by ads</li>
+              </ul>
+            </div>
+            <div class="price-card pro">
+              <h4>Pro</h4>
+              <div class="price">One-time purchase</div>
+              <ul>
+                <li>Ads removed</li>
+                <li>Every tool unlocked permanently</li>
+                <li>Pay once, no renewal</li>
+                <li>Restores on reinstall or a new phone with the same Google account</li>
+                <li>Helps fund continued development</li>
+              </ul>
+            </div>
+          </div>
+          <p class="no-sub-note">No watermarks on exported documents, on Free or Pro.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Publisher details -->
+  <section>
+    <div class="card">
+      <p class="eyebrow">Publisher</p>
+      <h2 class="section-title">App &amp; publisher details</h2>
+      <dl class="identity-grid">
+        <dt>App name</dt>
+        <dd>NijiScan</dd>
+        <dt>Developer</dt>
+        <dd>Vipulkumar Dalpatsang Gohil</dd>
+        <dt>Publisher name</dt>
+        <dd>MGB Studio</dd>
+        <dt>Platform</dt>
+        <dd>Android (Google Play)</dd>
+        <dt>Package name</dt>
+        <dd>com.nijiscan.app</dd>
+        <dt>Contact</dt>
+        <dd>nijiscan@gmail.com</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Legal -->
+  <section>
+    <div class="card">
+      <p class="eyebrow">Legal</p>
+      <h2 class="section-title">Policies</h2>
+      <p class="links">
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms-and-conditions.html">Terms &amp; Conditions</a>
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  &copy; 2026 NijiScan &middot; MGB Studio
+</footer>
+
+<script>
+  // Nov 2026: any screenshot not uploaded yet falls back to the dashed
+  // "Screenshot coming soon" box, so new files can simply be dropped into
+  // assets/ later with the names listed in SCREENSHOTS_NEEDED.txt.
+  document.querySelectorAll('img[data-shot]').forEach(function (img) {
+    function fallback() {
+      var d = document.createElement('div');
+      d.className = 'placeholder-shot';
+      d.textContent = 'Screenshot coming soon';
+      img.replaceWith(d);
+    }
+    img.addEventListener('error', fallback);
+    if (img.complete && img.naturalWidth === 0) fallback();
+  });
+
+  // Scroll-reveal for .reveal elements, and a hover-lift on screenshots
+  // (hover rule lives in CSS, gated the same way). Both respect
+  // prefers-reduced-motion — on a reduced-motion device everything is
+  // just shown immediately, no animation at all.
+  (function () {
+    var items = document.querySelectorAll('.reveal');
+    var prefersMotion = window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+    if (!prefersMotion || !('IntersectionObserver' in window)) {
+      items.forEach(function (el) { el.classList.add('in-view'); });
+      return;
+    }
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    items.forEach(function (el) { observer.observe(el); });
+  })();
+</script>
+
+</body>
+</html>
